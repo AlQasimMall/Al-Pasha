@@ -1,7 +1,7 @@
 {
   "name": "تاكسي العراق",
   "short_name": "تاكسي العراق",
-  "start_url": "/Al-Pasha/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FFD700",
