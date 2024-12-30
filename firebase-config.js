@@ -91,11 +91,13 @@ if ('serviceWorker' in navigator) {
         });
 }
 
-// تصدير المتغيرات والدوال
-export {
+
+// في firebase-config.js
+// بدلاً من export
+window.firebaseConfig = {
     database,
     storage,
     messaging,
     updateNotificationToken,
     checkLocationPermission
-};
+  };
