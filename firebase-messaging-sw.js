@@ -83,15 +83,14 @@ const CACHE_NAME = `taxi-app-cache-${CACHE_VERSION}`;
 
 // Assets to cache
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/style.css',
-    '/app.js',
-    '/offline.html',
-    '/pngwing.com.png',
-    '/default-image.png'
+    '/Al-Pasha/',
+    '/Al-Pasha/index.html',
+    '/Al-Pasha/manifest.json',
+    '/Al-Pasha/style.css',
+    '/Al-Pasha/app.js',
+    '/Al-Pasha/firebase-messaging-sw.js'
 ];
+
 
 const EXTERNAL_ASSETS = [
     'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.rtl.min.css',
