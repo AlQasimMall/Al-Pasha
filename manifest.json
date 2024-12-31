@@ -1,13 +1,28 @@
 {
   "name": "تاكسي العراق",
   "short_name": "تاكسي العراق",
-  "start_url": "index.html",
+  "start_url": "https://alqasimmall.github.io/Al-Pasha/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FFD700",
   "orientation": "portrait-primary",
+  "gcm_sender_id": "255034474844",
+  "description": "خدمة حجز سيارات الأجرة الأفضل في العراق",
   "icons": [
     {
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "permissions": [
+    "gcm",
+    "notifications",
+    "geolocation"
+  ],
+  "scope": "https://alqasimmall.github.io/Al-Pasha/"
+}
       "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
       "sizes": "192x192",
@@ -48,7 +63,7 @@
   "shortcuts": [
     {
       "name": "البحث عن سائق",
-      "url": "/search",
+      "url": "/Al-Pasha/search",
       "icons": [
         {
           "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
@@ -56,5 +71,19 @@
         }
       ]
     }
-  ]
+  ],
+  "notification_preferences": {
+    "vibrate": true,
+    "sound": true,
+    "alerts": ["new_driver", "trip_updates", "chat_messages"]
+  },
+  "permissions": [
+    "gcm",
+    "notifications",
+    "geolocation"
+  ],
+  "serviceworker": {
+    "src": "/Al-Pasha/firebase-messaging-sw.js",
+    "scope": "/Al-Pasha/"
+  }
 }
