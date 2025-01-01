@@ -29,7 +29,7 @@ async initialize() {
     try {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/Pasha-Taxi-/firebase-messaging-sw.js')
+                navigator.serviceWorker.register('/Al-Pasha/firebase-messaging-sw.js')
                 .then(function(registration) {
                     console.log('Service Worker registered successfully');
                 }).catch(function(err) {
