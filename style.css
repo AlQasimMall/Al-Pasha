@@ -1,10 +1,10 @@
 /* Root Variables */
 :root {
     --primary-color: #FFD700;
-    --secondary-color: #B8860B;
+    --secondary-color: #12100a;
     --background-dark: #000000;
     --background-card: #1a1a1a;
-    --text-light: #FFFFFF;
+    --text-light: #1b1919;
     --text-gold: #FFD700;
     --success-green: #2ECC40;
     --danger-red: #FF4136;
@@ -217,6 +217,213 @@ body {
 
 .border-gold {
     border-color: var(--primary-color) !important;
+}
+
+.driver-name,
+.driver-info:not(.location-chip):not(.driver-status),
+.driver-bio,
+.driver-details,
+.modal-title,
+.text-muted,
+.chat-messages,
+.chat-body,
+.stat-value:not(.location-chip),
+.stat-label:not(.location-chip),
+.driver-meta:not(.location-chip),
+.search-result-item .driver-info,
+.registration-section,
+.form-label,
+.modal-body p {
+    color: #FFFFFF !important;
+}
+
+/* Preserve original location chip styles */
+.location-chip {
+    background-color: #000000 !important;
+    border: 2px solid #FFD700 !important;
+    color: #FFFFFF !important;
+}
+
+.location-chip:hover,
+.location-chip.active {
+    background-color: #1a1a1a !important;
+    color: #FFFFFF !important;
+    border-color: #FFD700 !important;
+}
+
+.location-chip i {
+    color: #FFD700 !important;
+}
+
+/* Preserve driver status styles */
+.driver-status {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.status-active {
+    color: var(--success-color) !important;
+}
+
+.status-inactive {
+    color: var(--accent-color) !important;
+}
+
+/* Additional preservation rules for specific components */
+.search-input,
+.form-control {
+    color: #000000 !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+/* Keep original colors for action buttons */
+.action-btn.primary {
+    background: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+}
+
+.action-btn.secondary {
+    background: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Registration Modal Styles */
+.modal-content {
+    background-color: #1a1a1a !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #FFD700 !important;
+    padding: 1.5rem;
+}
+
+.modal-title {
+    color: #FFD700 !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-close {
+    color: #FFD700 !important;
+    opacity: 1 !important;
+    filter: brightness(0) invert(1) sepia(1) saturate(10000%) hue-rotate(300deg);
+}
+
+.registration-section {
+    background-color: #242424 !important;
+    border: 1px solid #FFD700 !important;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #FFD700 !important;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form Controls */
+.form-label {
+    color: #FFFFFF !important;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    background-color: #333333 !important;
+    border: 1px solid #FFD700 !important;
+    color: #FFFFFF !important;
+    border-radius: 10px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #444444 !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25) !important;
+    color: #FFFFFF !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Upload Containers */
+.user-photo-upload,
+.driver-photo-upload {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px dashed #FFD700 !important;
+    background-color: #242424 !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-placeholder {
+    text-align: center;
+    color: #FFD700 !important;
+}
+
+.upload-placeholder i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #FFD700 !important;
+}
+
+/* Terms Checkbox */
+.form-check-label {
+    color: #FFFFFF !important;
+}
+
+.form-check-input {
+    border-color: #FFD700 !important;
+}
+
+.form-check-input:checked {
+    background-color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #FFD700 !important;
+    border-color: #FFD700 !important;
+    color: #000000 !important;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ccac00 !important;
+    border-color: #ccac00 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Account Type Cards */
+.account-type-card {
+    background-color: #242424 !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .account-type-card:hover {
