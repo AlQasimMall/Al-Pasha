@@ -1,225 +1,222 @@
+/* Root Variables */
 :root {
     --primary-color: #FFD700;
-    --secondary-color: #1a1a1a;
-    --accent-color: #FF4136;
-    --success-color: #2ECC40;
-    --info-color: #39CCCC;
-    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --secondary-color: #B8860B;
+    --background-dark: #000000;
+    --background-card: #1a1a1a;
+    --text-light: #FFFFFF;
+    --text-gold: #FFD700;
+    --success-green: #2ECC40;
+    --danger-red: #FF4136;
+    --card-border-radius: 20px;
+    --button-border-radius: 30px;
 }
 
+/* Base Styles */
 body {
-    margin: 1;
-    padding: 1;
-    box-sizing: border-box;
-    color: #FFFFFF;
+    background-color: var(--background-dark);
+    color: var(--text-light);
 }
 
-.driver-name,
-.driver-info:not(.location-chip):not(.driver-status),
-.driver-bio,
-.driver-details,
-.modal-title,
-.text-muted,
-.chat-messages,
-.chat-body,
-.stat-value:not(.location-chip),
-.stat-label:not(.location-chip),
-.driver-meta:not(.location-chip),
-.search-result-item .driver-info,
-.registration-section,
-.form-label,
-.modal-body p {
-    color: #FFFFFF !important;
+/* Header and Navigation */
+.app-header {
+    background-color: var(--background-dark);
+    border-bottom: 1px solid var(--primary-color);
 }
 
-/* Preserve original location chip styles */
+.app-logo {
+    color: var(--primary-color);
+}
+
+/* Location Chips */
 .location-chip {
-    background-color: #000000 !important;
-    border: 2px solid #FFD700 !important;
-    color: #FFFFFF !important;
+    background-color: var(--background-dark) !important;
+    border: 2px solid var(--primary-color) !important;
+    color: var(--text-light) !important;
+    border-radius: var(--button-border-radius);
+    padding: 0.8rem 1.5rem;
 }
 
-.location-chip:hover,
 .location-chip.active {
-    background-color: #1a1a1a !important;
-    color: #FFFFFF !important;
-    border-color: #FFD700 !important;
+    background-color: var(--primary-color) !important;
+    color: var(--background-dark) !important;
 }
 
-.location-chip i {
-    color: #FFD700 !important;
+/* Cards and Modals */
+.modal-content {
+    background-color: var(--background-dark);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--card-border-radius);
 }
 
-/* Preserve driver status styles */
-.driver-status {
-    background: rgba(255, 255, 255, 0.8) !important;
+.card, .driver-card {
+    background-color: var(--background-dark);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--card-border-radius);
 }
 
+/* Buttons */
+.btn-primary {
+    background-color: var(--success-green);
+    border: none;
+    color: var(--text-light);
+    border-radius: var(--button-border-radius);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border: none;
+    color: var(--text-light);
+    border-radius: var(--button-border-radius);
+}
+
+/* Forms */
+.form-control {
+    background-color: var(--background-card);
+    border: 1px solid var(--primary-color);
+    color: var(--text-light);
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    background-color: var(--background-card);
+    border-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+}
+
+/* Navigation Menu */
+.side-nav {
+    background-color: var(--background-dark);
+    border-left: 2px solid var(--primary-color);
+}
+
+.side-nav-item {
+    color: var(--primary-color);
+}
+
+.side-nav-item:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    background-color: var(--background-dark);
+    border-top: 1px solid var(--primary-color);
+}
+
+.bottom-nav-item {
+    color: var(--primary-color);
+}
+
+/* Status Indicators */
 .status-active {
-    color: var(--success-color) !important;
+    color: var(--success-green);
 }
 
 .status-inactive {
-    color: var(--accent-color) !important;
+    color: var(--danger-red);
 }
 
-/* Additional preservation rules for specific components */
-.search-input,
-.form-control {
-    color: #000000 !important;
+/* Map Controls */
+.leaflet-control-zoom {
+    background-color: var(--background-dark);
+    border: 1px solid var(--primary-color);
 }
 
-.modal-header,
-.modal-footer {
-    border-color: rgba(255, 215, 0, 0.2) !important;
-}
-
-/* Keep original colors for action buttons */
-.action-btn.primary {
-    background: var(--primary-color) !important;
-    color: var(--secondary-color) !important;
-}
-
-.action-btn.secondary {
-    background: var(--secondary-color) !important;
+.leaflet-control-zoom-in, 
+.leaflet-control-zoom-out {
     color: var(--primary-color) !important;
-}
-
-/* Registration Modal Styles */
-.modal-content {
-    background-color: #1a1a1a !important;
-    border: 2px solid #FFD700 !important;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-.modal-header {
-    background-color: #000000 !important;
-    border-bottom: 2px solid #FFD700 !important;
-    padding: 1.5rem;
-}
-
-.modal-title {
-    color: #FFD700 !important;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.btn-close {
-    color: #FFD700 !important;
-    opacity: 1 !important;
-    filter: brightness(0) invert(1) sepia(1) saturate(10000%) hue-rotate(300deg);
-}
-
-.registration-section {
-    background-color: #242424 !important;
-    border: 1px solid #FFD700 !important;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.section-title {
-    color: #FFD700 !important;
-    border-bottom: 2px solid #FFD700;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Form Controls */
-.form-label {
-    color: #FFFFFF !important;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.form-control,
-.form-select {
-    background-color: #333333 !important;
-    border: 1px solid #FFD700 !important;
-    color: #FFFFFF !important;
-    border-radius: 10px;
-}
-
-.form-control:focus,
-.form-select:focus {
-    background-color: #444444 !important;
-    border-color: #FFD700 !important;
-    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25) !important;
-    color: #FFFFFF !important;
-}
-
-.form-control::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
-
-/* Upload Containers */
-.user-photo-upload,
-.driver-photo-upload {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px dashed #FFD700 !important;
-    background-color: #242424 !important;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.upload-placeholder {
-    text-align: center;
-    color: #FFD700 !important;
-}
-
-.upload-placeholder i {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #FFD700 !important;
-}
-
-/* Terms Checkbox */
-.form-check-label {
-    color: #FFFFFF !important;
-}
-
-.form-check-input {
-    border-color: #FFD700 !important;
-}
-
-.form-check-input:checked {
-    background-color: #FFD700 !important;
-    border-color: #FFD700 !important;
-}
-
-/* Submit Button */
-.btn-primary {
-    background-color: #FFD700 !important;
-    border-color: #FFD700 !important;
-    color: #000000 !important;
-    font-weight: bold;
-    padding: 0.75rem 2rem;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #ccac00 !important;
-    border-color: #ccac00 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    background-color: var(--background-dark) !important;
 }
 
 /* Account Type Cards */
 .account-type-card {
-    background-color: #242424 !important;
-    border: 2px solid #FFD700 !important;
+    background-color: var(--background-card);
+    border: 2px solid var(--primary-color);
+}
+
+.icon-container {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+}
+
+/* Notifications */
+.custom-toast {
+    background-color: var(--background-dark);
+    border: 2px solid var(--primary-color);
+    color: var(--text-light);
+}
+
+/* Dialog/Modal Headers */
+.modal-header {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+
+.modal-title {
+    color: var(--text-light);
+}
+
+/* Success/Confirmation Messages */
+.success-message {
+    background-color: var(--background-dark);
+    border: 2px solid var(--success-green);
+    color: var(--success-green);
+}
+
+/* Driver Profile Cards */
+.driver-info {
+    background-color: var(--background-card);
+    padding: 1rem;
     border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+}
+
+.driver-stats {
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+/* Chat Interface */
+.chat-window {
+    background-color: var(--background-dark);
+    border: 2px solid var(--primary-color);
+}
+
+.message-bubble.sent {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+
+.message-bubble.received {
+    background-color: var(--background-card);
+    color: var(--text-light);
+}
+
+/* Search Components */
+.search-input {
+    background-color: var(--background-card);
+    border: 1px solid var(--primary-color);
+    color: var(--text-light);
+}
+
+.search-result-item {
+    background-color: var(--background-card);
+    border: 1px solid var(--primary-color);
+}
+
+/* Additional Utilities */
+.text-gold {
+    color: var(--primary-color) !important;
+}
+
+.bg-dark {
+    background-color: var(--background-dark) !important;
+}
+
+.border-gold {
+    border-color: var(--primary-color) !important;
 }
 
 .account-type-card:hover {

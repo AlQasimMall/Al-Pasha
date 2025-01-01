@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <!-- إضافة متطلبات PWA -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="تاكسي العراق">
-    <meta name="theme-color" content="#FFD700">
-
-    <!-- تحديث المسارات -->
-    <link rel="manifest" href="https://alqasimmall.github.io/Al-Pasha/manifest.json">
-    <link rel="stylesheet" href="https://alqasimmall.github.io/Al-Pasha/style.css">
-
+   <meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="تاكسي العراق">
+<meta name="apple-mobile-web-app-title" content="تاكسي العراق">
+<meta name="theme-color" content="#FFD700">
+<meta name="msapplication-navbutton-color" content="#FFD700">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="/Pasha-Taxi-/">
 
     <title>تاكسي العراق - خدمة حجز السيارات الأولى في العراق</title>
 
     <!-- App Icons -->
+    <!-- Update this line in index.html -->
+<link rel="manifest" href="/Pasha-Taxi-/manifest.json">
     <link rel="icon" type="image/png"
         href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
     <link rel="apple-touch-icon" sizes="180x180"
@@ -51,6 +50,7 @@
     <meta name="twitter:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
     <meta name="twitter:image"
         content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+        <script src="/Pasha-Taxi-/install.js"></script>
 
 
     <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
@@ -61,16 +61,22 @@
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     
-    <!-- تحديث ترتيب السكربتات -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
     
-    <!-- إزالة الإشارة إلى firebase-messaging-sw.js -->
-    <!-- إضافة app.js -->
-    <script src="https://alqasimmall.github.io/Al-Pasha/app.js" defer></script>
 
+
+
+    <!-- App Scripts -->
+
+ <script src="firebase-messaging-sw.js></script>
+ 
+ <script src=" script.js"></script>
+ 
 
 
 

@@ -27,15 +27,16 @@ class NotificationHandler {
 
 async initialize() {
     try {
-        // محاولة تسجيل Service Worker
         if ('serviceWorker' in navigator) {
-          this.swRegistration = await navigator.serviceWorker.register('https://alqasimmall.github.io/Al-Pasha/firebase-messaging-sw.js', {
-            scope: '/Al-Pasha/'
-        });
-        
-            console.log('Service Worker registered successfully:', this.swRegistration);
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/Pasha-Taxi-/firebase-messaging-sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered successfully');
+                }).catch(function(err) {
+                    console.error('Service Worker registration failed:', err);
+                });
+            });
         }
-
         await this.checkNotificationSupport();
         await this.requestPermission();
         await this.setupMessaging();
@@ -2613,7 +2614,7 @@ class LocationNotificationSystem {
         document.body.appendChild(toast);
 
         // تشغيل صوت الإشعار
-        const audio = new Audio('/https://github.com/AlQasimMall/Al-Pasha/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
+        const audio = new Audio('/https://github.com/AlQasimMall/Pasha-taxi-/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
         audio.play().catch(error => console.log('Could not play notification sound:', error));
 
         // إزالة الإشعار بعد 5 ثواني
