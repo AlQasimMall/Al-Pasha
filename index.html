@@ -3821,10 +3821,18 @@ body {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-    <label class="form-label">رابط موقع السائق</label>
-    <input type="url" class="form-control" id="driverMapLink" 
-           placeholder="أدخل رابط الموقع (Google Maps)">
+                   <div class="col-md-12">
+    <div class="location-capture-section">
+        <label class="form-label">موقع السائق</label>
+        <div class="d-flex gap-2 mb-2">
+            <input type="text" class="form-control" id="driverLatitude" placeholder="خط العرض" readonly>
+            <input type="text" class="form-control" id="driverLongitude" placeholder="خط الطول" readonly>
+        </div>
+        <button type="button" class="btn btn-primary w-100" onclick="captureCurrentLocation()">
+            <i class="fas fa-location-arrow me-2"></i>
+            تحديد الموقع الحالي
+        </button>
+    </div>
 </div>
 
 
@@ -5152,7 +5160,7 @@ notificationHandler.initialize().catch(console.error);
         "بابل": { lat: 32.4680, lng: 44.4491 },
         "الحلة": { lat: 32.4689, lng: 44.4217 },
         "المسيب": { lat: 32.8471, lng: 44.2907 },
-        "الهاشمية": { lat: 32.3614743, lng:44.6519257},
+        "الهاشمية": { lat: 32.2482, lng: 44.6027 },
         "القاسم": { lat: 32.2973, lng: 44.5907 },
         "ديالى": { lat: 33.7752, lng: 44.6451 },
         "بعقوبة": { lat: 33.7474, lng: 44.6537 },
@@ -5184,225 +5192,27 @@ notificationHandler.initialize().catch(console.error);
     }
 
     // مثال على الاستخدام في دالة إضافة السائق
-    function handleImagePreview(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const preview = document.getElementById('imagePreview');
-            const placeholder = document.querySelector('.upload-placeholder');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-            placeholder.style.display = 'none';
-        }
-        reader.readAsDataURL(file);
-    }
-}
+    async function handleAddDriver(event) {
+        event.preventDefault();
 
-async function extractCoordinatesFromMapLink(mapLink) {
-    try {
-        if (!mapLink) return null;
-        
-        const url = new URL(mapLink);
-        
-        // Handle Google Maps links
-        if (url.hostname.includes('google.com')) {
-            // Try @-parameter format
-            const atMatch = mapLink.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
-            if (atMatch) {
-                return {
-                    lat: parseFloat(atMatch[1]),
-                    lng: parseFloat(atMatch[2])
-                };
-            }
-            
-            // Try q-parameter format
-            const searchParams = new URLSearchParams(url.search);
-            const query = searchParams.get('q');
-            if (query) {
-                const coords = query.split(',').map(Number);
-                if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
-                    return {
-                        lat: coords[0],
-                        lng: coords[1]
-                    };
-                }
-            }
-        }
-        
-        // If no coordinates found, try geocoding the location
         const location = document.getElementById('driverLocation').value;
-        return await getCoordinatesForLocation(location);
-    } catch (error) {
-        console.error('Error extracting coordinates:', error);
-        return null;
-    }
-}
+        const coordinates = getCoordinatesForLocation(location);
 
-function calculatePreciseDistance(point1, point2) {
-    if (!point1 || !point2 || !point1.lat || !point1.lng || !point2.lat || !point2.lng) {
-        return null;
-    }
-
-    const R = 6371; // Earth's radius in kilometers
-    const dLat = toRad(point2.lat - point1.lat);
-    const dLon = toRad(point2.lng - point1.lng);
-    const lat1 = toRad(point1.lat);
-    const lat2 = toRad(point2.lat);
-
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    const distance = R * c;
-
-    // Round to 2 decimal places
-    return Math.round(distance * 100) / 100;
-}
-
-function toRad(degrees) {
-    return degrees * Math.PI / 180;
-}
-
-async function handleAddDriver(event) {
-    event.preventDefault();
-    showLoading();
-
-    try {
-        const imageFile = document.getElementById('driverImage').files[0];
-        if (!imageFile) {
-            throw new Error('الرجاء اختيار صورة للسائق');
-        }
-
-        const mapLink = document.getElementById('driverMapLink').value;
-        const location = document.getElementById('driverLocation').value;
-        
-        // Try to get coordinates from map link first, then fallback to location name
-        let coordinates = await extractCoordinatesFromMapLink(mapLink);
-        if (!coordinates) {
-            coordinates = await getCoordinatesForLocation(location);
-        }
-
-        if (!coordinates) {
-            throw new Error('لم نتمكن من تحديد الموقع، يرجى التأكد من الرابط أو اختيار منطقة صحيحة');
-        }
-
-        const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
-        const uploadTask = await imageRef.put(imageFile);
-        const imageUrl = await uploadTask.ref.getDownloadURL();
+        // استخدام الإحداثيات في البيانات المرسلة
 
         const driverData = {
-            name: document.getElementById('driverName').value,
-            phone: document.getElementById('driverPhone').value,
-            carType: document.getElementById('carType').value,
-            carModel: document.getElementById('carModel').value,
-            location: location,
-            mapLink: mapLink,
-            coordinates: coordinates,
-            bio: document.getElementById('driverBio').value,
-            imageUrl: imageUrl,
-            rating: 5,
-            trips: 0,
-            active: true,
-            createdAt: firebase.database.ServerValue.TIMESTAMP
+            // ... البيانات الأخرى
+            latitude: coordinates.lat,
+            longitude: coordinates.lng
         };
 
-        await database.ref('drivers').push(driverData);
-
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
-        modal.hide();
-
-        document.getElementById('addDriverForm').reset();
-        showToast('تم إضافة السائق بنجاح');
-        loadDrivers();
-
-        // Update map marker if coordinates are available
-        if (coordinates && map) {
-            const driverMarker = L.marker([coordinates.lat, coordinates.lng], {
-                icon: L.divIcon({
-                    html: `<img src="${imageUrl}" alt="صورة السائق" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #FFD700;">`,
-                    className: 'driver-marker',
-                    iconSize: [40, 40]
-                })
-            }).addTo(markerLayer);
-
-            // Center map on new driver location
-            map.setView([coordinates.lat, coordinates.lng], 15);
+        // إكمال عملية إضافة السائق
+        try {
+            // ... كود إرسال البيانات
+        } catch (error) {
+            console.error('Error adding driver:', error);
         }
-
-    } catch (error) {
-        console.error('Error adding driver:', error);
-        showToast(error.message, 'error');
-    } finally {
-        hideLoading();
     }
-}
-
-function createDriverCard(driver, key) {
-    const distance = userLocation && driver.coordinates ? 
-        calculatePreciseDistance(userLocation, driver.coordinates) : null;
-
-    const distanceDisplay = distance ? 
-        `${distance < 1 ? 
-            Math.round(distance * 1000) + ' متر' : 
-            distance + ' كم'}` : 
-        '--';
-
-    return `
-        <div class="driver-card animate__animated animate__fadeIn">
-            <div class="driver-image-container">
-                <img src="${driver.imageUrl}" alt="${driver.name}" class="driver-image">
-                <div class="driver-status ${driver.active ? 'status-active' : 'status-inactive'}">
-                    ${driver.active ? 'متاح' : 'مشغول'}
-                </div>
-            </div>
-            <div class="driver-info">
-                <h5 class="driver-name">${driver.name}</h5>
-                <div class="driver-stats">
-                    <div class="stat-item" onclick="addRating('${key}')">
-                        <div class="stat-value">
-                            <i class="fas fa-star"></i>
-                            ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
-                        </div>
-                        <div class="stat-label">التقييم</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">
-                            <i class="fas fa-route"></i>
-                            ${driver.trips || 0}
-                        </div>
-                        <div class="stat-label">الرحلات</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">
-                            ${distanceDisplay}
-                        </div>
-                        <div class="stat-label">المسافة</div>
-                    </div>
-                </div>
-                <div class="text-muted">
-                    <p class="mb-2">
-                        <i class="fas fa-car me-2"></i>
-                        ${driver.carType} ${driver.carModel}
-                    </p>
-                    <p class="mb-0">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        ${driver.location}
-                    </p>
-                </div>
-            </div>
-            <div class="driver-actions">
-                <button class="action-btn primary" onclick="viewDriverLocation('${key}')">
-                    <i class="fas fa-map-marker-alt"></i>
-                    عرض الموقع
-                </button>
-                <button class="action-btn secondary" onclick="openChatWindow('${key}')">
-                    <i class="fas fa-comment"></i>
-                    مراسلة
-                </button>
-            </div>
-        </div>
-    `;
-}
 
     function handleLocationError(error) {
         // التعامل مع خطأ في الموقع الجغرافي
@@ -7581,12 +7391,137 @@ class NotificationTester {
     }
 }
 
+function captureCurrentLocation() {
+    if (!navigator.geolocation) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ!',
+            text: 'متصفحك لا يدعم تحديد الموقع'
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'جاري تحديد موقعك...',
+        text: 'يرجى الانتظار',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            document.getElementById('driverLatitude').value = position.coords.latitude;
+            document.getElementById('driverLongitude').value = position.coords.longitude;
+            
+            // تحديث الموقع على الخريطة إذا كانت متاحة
+            if (window.map) {
+                const latLng = [position.coords.latitude, position.coords.longitude];
+                window.map.setView(latLng, 15);
+                
+                // إضافة أو تحديث علامة الموقع
+                if (window.locationMarker) {
+                    window.locationMarker.setLatLng(latLng);
+                } else {
+                    window.locationMarker = L.marker(latLng).addTo(window.map);
+                }
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'تم!',
+                text: 'تم تحديد موقعك بنجاح'
+            });
+        },
+        (error) => {
+            let errorMessage = 'حدث خطأ في تحديد الموقع';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = 'تم رفض الوصول إلى الموقع. يرجى السماح للتطبيق باستخدام خدمة الموقع';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = 'معلومات الموقع غير متوفرة';
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = 'انتهت مهلة طلب الموقع';
+                    break;
+            }
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ!',
+                text: errorMessage
+            });
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
+}
+
+// تحديث دالة handleAddDriver لتشمل بيانات الموقع
+async function handleAddDriver(event) {
+    event.preventDefault();
+    showLoading();
+
+    try {
+        const latitude = document.getElementById('driverLatitude').value;
+        const longitude = document.getElementById('driverLongitude').value;
+
+        if (!latitude || !longitude) {
+            throw new Error('يرجى تحديد موقع السائق أولاً');
+        }
+
+        const imageFile = document.getElementById('driverImage').files[0];
+        if (!imageFile) {
+            throw new Error('الرجاء اختيار صورة للسائق');
+        }
+
+        const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
+        const uploadTask = await imageRef.put(imageFile);
+        const imageUrl = await uploadTask.ref.getDownloadURL();
+
+        const driverData = {
+            name: document.getElementById('driverName').value,
+            phone: document.getElementById('driverPhone').value,
+            carType: document.getElementById('carType').value,
+            carModel: document.getElementById('carModel').value,
+            location: document.getElementById('driverLocation').value,
+            coordinates: {
+                lat: parseFloat(latitude),
+                lng: parseFloat(longitude)
+            },
+            bio: document.getElementById('driverBio').value,
+            imageUrl: imageUrl,
+            rating: 5,
+            trips: 0,
+            active: true,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        await database.ref('drivers').push(driverData);
+
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
+        modal.hide();
+
+        document.getElementById('addDriverForm').reset();
+        showToast('تم إضافة السائق بنجاح');
+        loadDrivers();
+    } catch (error) {
+        console.error('Error adding driver:', error);
+        showToast(error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
 
 
 // تشغيل الاختبار عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', addTestButton);
-
-
 
         </script>
     </main>
