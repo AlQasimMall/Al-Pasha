@@ -3822,10 +3822,10 @@ body {
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label">رابط موقع السائق</label>
-                        <input type="url" class="form-control" id="driverMapLink"
-                            placeholder="أدخل رابط الموقع (Google Maps)">
-                    </div>
+    <label class="form-label">رابط موقع السائق</label>
+    <input type="url" class="form-control" id="driverMapLink" 
+           placeholder="أدخل رابط الموقع (Google Maps)">
+</div>
 
 
                     <div class="row g-3">
@@ -5184,27 +5184,7 @@ notificationHandler.initialize().catch(console.error);
     }
 
     // مثال على الاستخدام في دالة إضافة السائق
-    async function handleAddDriver(event) {
-        event.preventDefault();
-
-        const location = document.getElementById('driverLocation').value;
-        const coordinates = getCoordinatesForLocation(location);
-
-        // استخدام الإحداثيات في البيانات المرسلة
-
-        const driverData = {
-            // ... البيانات الأخرى
-            latitude: coordinates.lat,
-            longitude: coordinates.lng
-        };
-
-        // إكمال عملية إضافة السائق
-        try {
-            // ... كود إرسال البيانات
-        } catch (error) {
-            console.error('Error adding driver:', error);
-        }
-    }
+    
 
     function handleLocationError(error) {
         // التعامل مع خطأ في الموقع الجغرافي
